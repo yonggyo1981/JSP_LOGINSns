@@ -24,15 +24,13 @@ public class NaverLoginController extends HttpServlet {
 		try {
 			String accessToken = naver.getAccessToken(request);
 			HashMap<String, String> userInfo = naver.getUserProfile(accessToken);
-			Iterator<String> ir = userInfo.keySet().iterator();
-			/*out.print(userInfo);
-			
+			Iterator<String> ir = userInfo.keySet().iterator();			
 			while(ir.hasNext()) {
 				String key = ir.next();
 				String value = userInfo.get(key);
 				out.printf("%s = %s<br>", key, value);
 			}
-			*/
+		
 			
 		} catch (Exception e) {
 			out.printf("<script>alert('%s');</script>", e.getMessage());
