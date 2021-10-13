@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.FilterConfig;
 import javax.servlet.http.HttpSession;
 
+import com.exception.*;
+
 /**
  * 네이버 아이디로 로그인 
  *
@@ -61,14 +63,21 @@ public class NaverLogin extends SocialLogin {
 	}
 
 	@Override
-	public String getAccessToken(HttpServletRequest request) {
+	public String getAccessToken(HttpServletRequest request) throws SocialLoginException {
 		// TODO Auto-generated method stub
-		return null;
+		String code = request.getParameter("code");
+		String state = request.getParameter("state");
+		return getAccessToken(request, code, state);
 	}
 
 	@Override
-	public String getAccessToken(String code, String state) {
-		// TODO Auto-generated method stub
+	public String getAccessToken(HttpServletRequest request, String code, String state) throws SocialLoginException {
+		HttpSession session = request.getSession();
+		String _state = (String)session.getAttribute("state");
+		if (!state.equals(_state)) {
+			throw new SocialLoginException("데이터가 변조되었습니다.");
+		}
+		
 		return null;
 	}
 

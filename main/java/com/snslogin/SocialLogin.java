@@ -3,6 +3,8 @@ package com.snslogin;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
+import com.exception.*;
+
 /**
  * SNS 로그인 추상 클래스  
  *
@@ -23,8 +25,8 @@ public abstract class SocialLogin {
 	 * @param request
 	 * @return
 	 */
-	public abstract String getAccessToken(HttpServletRequest request);
-	public abstract String getAccessToken(String code, String state);
+	public abstract String getAccessToken(HttpServletRequest request) throws SocialLoginException;
+	public abstract String getAccessToken(HttpServletRequest request, String code, String state) throws SocialLoginException;
 	
 	/**
 	 * getAccessToken을 통해서 발급받은 토큰으로 회원 정보 조회
