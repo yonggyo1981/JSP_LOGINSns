@@ -98,8 +98,13 @@ public class NaverLogin extends SocialLogin {
 		/** 요청 URL 생성 E */
 		
 		String apiURL = sb.toString();
-		httpRequest(apiURL);
-		return null;
+		HashMap<String, String> result = httpRequest(apiURL);
+		String accessToken = null;
+		if (result.containsKey("access_token")) {
+			accessToken = result.get("access_token");
+		}
+		
+		return accessToken;
 	}
 
 	@Override
