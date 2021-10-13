@@ -14,7 +14,7 @@ public abstract class SocialLogin {
 	 * 
 	 * @return
 	 */
-	public abstract String getCodeURL();
+	public abstract String getCodeURL(HttpServletRequest request);
 	
 	/**
 	 * getCodeURL()로 부터 리다렉트될때 실려온 code, state 값을 통해 

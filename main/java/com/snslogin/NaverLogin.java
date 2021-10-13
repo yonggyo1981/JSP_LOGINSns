@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.FilterConfig;
+import javax.servlet.http.HttpSession;
 
 /**
  * 네이버 아이디로 로그인 
@@ -40,7 +41,11 @@ public class NaverLogin extends SocialLogin {
 	}
 	
 	@Override
-	public String getCodeURL() {
+	public String getCodeURL(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		long state = System.currentTimeMillis();
+		session.setAttribute("state", state);
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("https://nid.naver.com/oauth2.0/authorize?");
@@ -48,8 +53,11 @@ public class NaverLogin extends SocialLogin {
 		sb.append("&client_id=");
 		sb.append(clientId);
 		sb.append("&redirect_uri=");
+		sb.append(callbackUrl);
+		sb.append("&state=");
+		sb.append(state);
 		
-		return null;
+		return sb.toString();
 	}
 
 	@Override
