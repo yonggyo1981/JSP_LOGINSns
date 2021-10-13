@@ -94,8 +94,9 @@ public class NaverLogin extends SocialLogin {
 		sb.append(state);
 		/** 요청 URL 생성 E */
 		
+		String apiURL = sb.toString();
 		
-		return sb.toString();
+		return null;
 	}
 
 	@Override

@@ -35,6 +35,17 @@ public abstract class SocialLogin {
 	 * @return
 	 */
 	public abstract HashMap<String, String> getUserProfile(String accessToken);
+	
+	/**
+	 * Http 소켓을 통해서 응답 데이터 가져오는 메서드
+	 * 
+	 * @param apiUrl
+	 * @return
+	 */
+	public String HttpRequest(String apiUrl) {
+		
+		return null;
+	}
 }
 
 
