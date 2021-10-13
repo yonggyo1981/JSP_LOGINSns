@@ -27,8 +27,8 @@ public abstract class SocialLogin {
 	 * @param request
 	 * @return
 	 */
-	public abstract String getAccessToken(HttpServletRequest request) throws SocialLoginException;
-	public abstract String getAccessToken(HttpServletRequest request, String code, String state) throws SocialLoginException;
+	public abstract String getAccessToken(HttpServletRequest request) throws SocialLoginException, IOException;
+	public abstract String getAccessToken(HttpServletRequest request, String code, String state) throws SocialLoginException, IOException;
 	
 	/**
 	 * getAccessToken을 통해서 발급받은 토큰으로 회원 정보 조회
@@ -44,7 +44,35 @@ public abstract class SocialLogin {
 	 * @param apiUrl
 	 * @return
 	 */
-	public String HttpRequest(String apiUrl) {
+	public String httpRequest(String apiUrl) throws IOException {
+		URL url = new URL(apiUrl);
+		
+		HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+		conn.setRequestMethod("GET");
+		int statusCode = conn.getResponseCode();
+		
+		// getInputStream(), getErrorStream()
+		InputStream in; 
+		if (statusCode == HttpURLConnection.HTTP_OK) {
+			in = conn.getInputStream();
+		} else { // 상태코드가 200이 아닌 경우 
+			in = conn.getErrorStream();
+		}
+		
+		InputStreamReader isr = new InputStreamReader(in);
+		BufferedReader br = new BufferedReader(isr);
+		
+		StringBuilder sb = new StringBuilder();
+		String line;
+		while((line = br.readLine()) != null) {
+			sb.append(line);
+		}
+		
+		br.close();
+		isr.close();
+		in.close();
+		
+		System.out.println(sb.toString());
 		
 		return null;
 	}

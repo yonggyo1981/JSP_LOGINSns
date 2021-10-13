@@ -3,6 +3,7 @@ package com.snslogin;
 import java.util.HashMap;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.FilterConfig;
@@ -63,7 +64,7 @@ public class NaverLogin extends SocialLogin {
 	}
 
 	@Override
-	public String getAccessToken(HttpServletRequest request) throws SocialLoginException {
+	public String getAccessToken(HttpServletRequest request) throws SocialLoginException, IOException {
 		// TODO Auto-generated method stub
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
@@ -71,7 +72,7 @@ public class NaverLogin extends SocialLogin {
 	}
 
 	@Override
-	public String getAccessToken(HttpServletRequest request, String code, String state) throws SocialLoginException {
+	public String getAccessToken(HttpServletRequest request, String code, String state) throws SocialLoginException, IOException  {
 		/** 데이터 변조 체크 - state 값 S */ 
 		HttpSession session = request.getSession();
 		String _state = String.valueOf((Long)session.getAttribute("state"));
@@ -95,7 +96,7 @@ public class NaverLogin extends SocialLogin {
 		/** 요청 URL 생성 E */
 		
 		String apiURL = sb.toString();
-		
+		httpRequest(apiURL);
 		return null;
 	}
 
