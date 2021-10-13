@@ -109,7 +109,17 @@ public class NaverLogin extends SocialLogin {
 
 	@Override
 	public HashMap<String, String> getUserProfile(String accessToken) {
-		// TODO Auto-generated method stub
+		//  Authorization : Bearer accessToken 
+		HashMap<String, String> headers = new HashMap<>();
+		headers.put("Authorization", "Bearer " + accessToken);
+		String apiURL = "https://openapi.naver.com/v1/nid/me";
+		
+		try {
+			HashMap<String, String> result = httpRequest(apiURL, headers);
+			
+		} catch (IOException | ParseException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
