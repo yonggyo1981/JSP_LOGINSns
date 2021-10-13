@@ -99,10 +99,10 @@ public class NaverLogin extends SocialLogin {
 		/** 요청 URL 생성 E */
 		
 		String apiURL = sb.toString();
-		HashMap<String, String> result = httpRequest(apiURL);
+		JSONObject result = httpRequest(apiURL);
 		String accessToken = null;
 		if (result.containsKey("access_token")) {
-			accessToken = result.get("access_token");
+			accessToken = (String)result.get("access_token");
 		}
 		
 		return accessToken;
@@ -117,15 +117,12 @@ public class NaverLogin extends SocialLogin {
 		
 		HashMap<String, String> userInfo = null;
 		try {
-			HashMap<String, String> result = httpRequest(apiURL, headers);
-			String resultCode = result.get("resultcode");
-			if (resultCode.equals("00")) { // 회원 정보를 제대로 가져 왔을 때
-				userInfo = result.get("response");
-			}
+			
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}
-		return null;
+		
+		return userInfo;
 	}
 
 }

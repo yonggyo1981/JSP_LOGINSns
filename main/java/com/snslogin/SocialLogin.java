@@ -8,6 +8,7 @@ import java.util.*;
 import com.exception.*;
 
 import org.json.simple.parser.*;
+import org.json.simple.*;
 
 /**
  * SNS 로그인 추상 클래스  
@@ -44,10 +45,10 @@ public abstract class SocialLogin {
 	 * Http 소켓을 통해서 응답 데이터 가져오는 메서드
 	 * 
 	 * @param apiUrl
-	 * @return HashMap 
+	 * @return JSONObject 
 	 * @throws IOException, ParseException 
 	 */
-	public HashMap<String, String> httpRequest(String apiUrl) throws IOException, ParseException {
+	public JSONObject httpRequest(String apiUrl) throws IOException, ParseException {
 		return httpRequest(apiUrl, null);
 	}
 	
@@ -56,11 +57,11 @@ public abstract class SocialLogin {
 	 * 
 	 * @param apiUrl 
 	 * @param headers - 요청 헤더 
-	 * @return HashMap<String, String>  json형태 문자열 -> HashMap 변환
+	 * @return JSONObject
 	 * @throws IOException
 	 * @throws ParseException
 	 */
-	public HashMap<String, String> httpRequest(String apiUrl, HashMap<String,String> headers) throws IOException, ParseException {
+	public JSONObject httpRequest(String apiUrl, HashMap<String,String> headers) throws IOException, ParseException {
 		URL url = new URL(apiUrl);
 		
 		HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -102,7 +103,7 @@ public abstract class SocialLogin {
 		
 		
 		
-		HashMap<String, String> json = (HashMap)new JSONParser().parse(sb.toString());
+		JSONObject json = (JSONObject)new JSONParser().parse(sb.toString());
 		
 		return json;
 	}

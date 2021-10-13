@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.*;
 
 import com.snslogin.*;
 import com.exception.*;
@@ -22,7 +23,16 @@ public class NaverLoginController extends HttpServlet {
 		NaverLogin naver = new NaverLogin();
 		try {
 			String accessToken = naver.getAccessToken(request);
-			naver.getUserProfile(accessToken);
+			HashMap<String, String> userInfo = naver.getUserProfile(accessToken);
+			Iterator<String> ir = userInfo.keySet().iterator();
+			/*out.print(userInfo);
+			
+			while(ir.hasNext()) {
+				String key = ir.next();
+				String value = userInfo.get(key);
+				out.printf("%s = %s<br>", key, value);
+			}
+			*/
 			
 		} catch (Exception e) {
 			out.printf("<script>alert('%s');</script>", e.getMessage());
