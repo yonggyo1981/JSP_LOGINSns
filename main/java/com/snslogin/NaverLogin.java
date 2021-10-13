@@ -72,13 +72,30 @@ public class NaverLogin extends SocialLogin {
 
 	@Override
 	public String getAccessToken(HttpServletRequest request, String code, String state) throws SocialLoginException {
+		/** 데이터 변조 체크 - state 값 S */ 
 		HttpSession session = request.getSession();
 		String _state = (String)session.getAttribute("state");
 		if (!state.equals(_state)) {
 			throw new SocialLoginException("데이터가 변조되었습니다.");
 		}
+		/** 데이터 변조 체크 - state 값 E */ 
 		
-		return null;
+		/** 요청 URL 생성 S */
+		StringBuilder sb = new StringBuilder();
+		sb.append("https://nid.naver.com/oauth2.0/token?");
+		sb.append("grant_type=authorization_code");
+		sb.append("&client_id=");
+		sb.append(clientId);
+		sb.append("&client_secret=");
+		sb.append(clientSecret);
+		sb.append("&code=");
+		sb.append(code);
+		sb.append("&state=");
+		sb.append(state);
+		/** 요청 URL 생성 E */
+		
+		
+		return sb.toString();
 	}
 
 	@Override
