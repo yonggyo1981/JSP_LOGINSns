@@ -48,6 +48,10 @@ public abstract class SocialLogin {
 	 * @throws ParseException 
 	 */
 	public HashMap<String, String> httpRequest(String apiUrl) throws IOException, ParseException {
+		return httpRequest(apiUrl, null);
+	}
+	
+	public HashMap<String, String> httpRequest(String apiUrl, HashMap<String,String> headers) throws IOException, ParseException {
 		URL url = new URL(apiUrl);
 		
 		HttpURLConnection conn = (HttpURLConnection)url.openConnection();
