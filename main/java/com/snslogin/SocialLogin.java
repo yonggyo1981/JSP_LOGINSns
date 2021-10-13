@@ -2,6 +2,8 @@ package com.snslogin;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.net.*;
+import java.io.*;
 
 import com.exception.*;
 
