@@ -1,6 +1,7 @@
 package com.snslogin;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.io.IOException;
@@ -117,7 +118,18 @@ public class NaverLogin extends SocialLogin {
 		
 		HashMap<String, String> userInfo = null;
 		try {
-			
+			JSONObject result = httpRequest(apiURL, headers);
+			String resultcode = (String)result.get("resultcode");
+			if (resultcode.equals("00")) {
+				userInfo = new HashMap<String, String>();
+				JSONObject response = (JSONObject)result.get("response");
+				Iterator<String> ir = response.keySet().iterator();
+				while(ir.hasNext()) {
+					String key = ir.next();
+					String value = (String)response.get(key);
+					userInfo.put(key, value);
+				}
+			}
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}
