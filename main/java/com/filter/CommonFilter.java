@@ -16,7 +16,7 @@ import com.snslogin.*;
  */
 public class CommonFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
-		
+		NaverLogin.init(filterConfig);
 	}
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
