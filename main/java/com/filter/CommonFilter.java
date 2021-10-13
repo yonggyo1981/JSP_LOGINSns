@@ -7,6 +7,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.ServletException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import com.snslogin.*;
 
@@ -16,7 +17,12 @@ import com.snslogin.*;
  */
 public class CommonFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
-		NaverLogin.init(filterConfig);
+		try {
+			NaverLogin.init(filterConfig);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {

@@ -1,6 +1,8 @@
 package com.snslogin;
 
 import java.util.HashMap;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.FilterConfig;
@@ -21,14 +23,15 @@ public class NaverLogin extends SocialLogin {
 	 * @param clientId
 	 * @param clientSecret
 	 * @param callbackUrl
+	 * @throws unsupportedencodingexception 
 	 */
-	public static void init(String clientId, String clientSecret, String callbackUrl) {
+	public static void init(String clientId, String clientSecret, String callbackUrl) throws UnsupportedEncodingException {
 		NaverLogin.clientId = clientId;
 		NaverLogin.clientSecret = clientSecret;
-		NaverLogin.callbackUrl = callbackUrl;
+		NaverLogin.callbackUrl = URLEncoder.encode(callbackUrl, "UTF-8");
 	}
 	
-	public static void init(FilterConfig config) {
+	public static void init(FilterConfig config) throws UnsupportedEncodingException {
 		init(
 			config.getInitParameter("NaverClientId"),
 			config.getInitParameter("NaverClientSecret"),
@@ -38,7 +41,14 @@ public class NaverLogin extends SocialLogin {
 	
 	@Override
 	public String getCodeURL() {
-		// TODO Auto-generated method stub
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("https://nid.naver.com/oauth2.0/authorize?");
+		sb.append("response_type=code");
+		sb.append("&client_id=");
+		sb.append(clientId);
+		sb.append("&redirect_uri=");
+		
 		return null;
 	}
 
