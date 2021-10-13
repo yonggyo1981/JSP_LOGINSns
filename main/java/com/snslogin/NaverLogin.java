@@ -74,7 +74,7 @@ public class NaverLogin extends SocialLogin {
 	public String getAccessToken(HttpServletRequest request, String code, String state) throws SocialLoginException {
 		/** 데이터 변조 체크 - state 값 S */ 
 		HttpSession session = request.getSession();
-		String _state = (String)session.getAttribute("state");
+		String _state = String.valueOf((Long)session.getAttribute("state"));
 		if (!state.equals(_state)) {
 			throw new SocialLoginException("데이터가 변조되었습니다.");
 		}
