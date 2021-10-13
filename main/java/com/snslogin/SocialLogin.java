@@ -1,9 +1,9 @@
 package com.snslogin;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.net.*;
 import java.io.*;
+import java.util.*;
 
 import com.exception.*;
 
@@ -44,18 +44,39 @@ public abstract class SocialLogin {
 	 * Http 소켓을 통해서 응답 데이터 가져오는 메서드
 	 * 
 	 * @param apiUrl
-	 * @return JSONObject 
-	 * @throws ParseException 
+	 * @return HashMap 
+	 * @throws IOException, ParseException 
 	 */
 	public HashMap<String, String> httpRequest(String apiUrl) throws IOException, ParseException {
 		return httpRequest(apiUrl, null);
 	}
 	
+	/**
+	 * Http 소켓을 통해서 응답 데이터 가져오는 메서드
+	 * 
+	 * @param apiUrl 
+	 * @param headers - 요청 헤더 
+	 * @return HashMap<String, String>  json형태 문자열 -> HashMap 변환
+	 * @throws IOException
+	 * @throws ParseException
+	 */
 	public HashMap<String, String> httpRequest(String apiUrl, HashMap<String,String> headers) throws IOException, ParseException {
 		URL url = new URL(apiUrl);
 		
 		HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 		conn.setRequestMethod("GET");
+		
+		/** 요청 헤더 추가 S */
+		if (headers != null) {
+			Iterator<String> ir = headers.keySet().iterator();
+			while(ir.hasNext()) {
+				String key = ir.next();
+				String value = headers.get(key);
+				conn.setRequestProperty(key, value);
+			}
+		}
+		/** 요청 헤더 추가 E */
+		
 		int statusCode = conn.getResponseCode();
 		
 		// getInputStream(), getErrorStream()
