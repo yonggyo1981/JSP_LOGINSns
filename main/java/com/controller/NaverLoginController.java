@@ -21,8 +21,9 @@ public class NaverLoginController extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		NaverLogin naver = new NaverLogin();
 		try {
-			String result = naver.getAccessToken(request);
-			out.print(result);
+			String accessToken = naver.getAccessToken(request);
+			naver.getUserProfile(accessToken);
+			
 		} catch (Exception e) {
 			out.printf("<script>alert('%s');</script>", e.getMessage());
 		}

@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.FilterConfig;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.parser.ParseException;
+import org.json.simple.parser.*;
+import org.json.simple.*;
 
 import com.exception.*;
 
@@ -114,9 +115,13 @@ public class NaverLogin extends SocialLogin {
 		headers.put("Authorization", "Bearer " + accessToken);
 		String apiURL = "https://openapi.naver.com/v1/nid/me";
 		
+		HashMap<String, String> userInfo = null;
 		try {
 			HashMap<String, String> result = httpRequest(apiURL, headers);
-			
+			String resultCode = result.get("resultcode");
+			if (resultCode.equals("00")) { // 회원 정보를 제대로 가져 왔을 때
+				userInfo = result.get("response");
+			}
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}
