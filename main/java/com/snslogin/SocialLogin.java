@@ -29,8 +29,8 @@ public abstract class SocialLogin {
 	 * @param request
 	 * @return
 	 */
-	public abstract String getAccessToken(HttpServletRequest request) throws SocialLoginException, IOException;
-	public abstract String getAccessToken(HttpServletRequest request, String code, String state) throws SocialLoginException, IOException;
+	public abstract String getAccessToken(HttpServletRequest request) throws SocialLoginException, IOException, ParseException;
+	public abstract String getAccessToken(HttpServletRequest request, String code, String state) throws SocialLoginException, IOException, ParseException;
 	
 	/**
 	 * getAccessToken을 통해서 발급받은 토큰으로 회원 정보 조회

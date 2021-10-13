@@ -23,7 +23,7 @@ public class NaverLoginController extends HttpServlet {
 		try {
 			String result = naver.getAccessToken(request);
 			out.print(result);
-		} catch (SocialLoginException e) {
+		} catch (Exception e) {
 			out.printf("<script>alert('%s');</script>", e.getMessage());
 		}
 	}

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.FilterConfig;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.parser.ParseException;
+
 import com.exception.*;
 
 /**
@@ -64,7 +66,7 @@ public class NaverLogin extends SocialLogin {
 	}
 
 	@Override
-	public String getAccessToken(HttpServletRequest request) throws SocialLoginException, IOException {
+	public String getAccessToken(HttpServletRequest request) throws SocialLoginException, IOException, ParseException {
 		// TODO Auto-generated method stub
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
@@ -72,7 +74,7 @@ public class NaverLogin extends SocialLogin {
 	}
 
 	@Override
-	public String getAccessToken(HttpServletRequest request, String code, String state) throws SocialLoginException, IOException  {
+	public String getAccessToken(HttpServletRequest request, String code, String state) throws SocialLoginException, IOException, ParseException  {
 		/** 데이터 변조 체크 - state 값 S */ 
 		HttpSession session = request.getSession();
 		String _state = String.valueOf((Long)session.getAttribute("state"));
