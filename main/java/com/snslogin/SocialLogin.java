@@ -8,7 +8,6 @@ import java.io.*;
 import com.exception.*;
 
 import org.json.simple.parser.*;
-import org.json.simple.*;
 
 /**
  * SNS 로그인 추상 클래스  
