@@ -5,6 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import com.snslogin.*;
+import com.exception.*;
 
 /**
  * 네이버 로그인 Callback URL
@@ -13,6 +17,14 @@ import java.io.IOException;
 public class NaverLoginController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		NaverLogin naver = new NaverLogin();
+		try {
+			String result = naver.getAccessToken(request);
+			out.print(result);
+		} catch (SocialLoginException e) {
+			out.printf("<script>alert('%s');</script>", e.getMessage());
+		}
 	}
 }
