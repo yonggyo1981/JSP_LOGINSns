@@ -26,11 +26,12 @@ public class JoinController extends HttpServlet {
 		
 		NaverLogin naver = new NaverLogin();
 		Member member = naver.getSocialUserInfo(request);
+		boolean isSocialJoin = false;
 		if (member != null) { // 네이버 로그인으로 회원 가입 유입된 경우 
-			request.setAttribute("isSocialJoin", true);
-			request.setAttribute("member", member);
+			isSocialJoin = true;
 		}
-		
+		request.setAttribute("isSocialJoin", isSocialJoin);
+		request.setAttribute("member", member);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/member/form.jsp");
 		rd.include(request, response);
