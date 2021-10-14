@@ -175,8 +175,8 @@ public class MemberDao {
 		/** 아이디 자리수 체크 E */
 		
 		/** 비밀번호 자리수 체크 S */
+		String memPw = request.getParameter("memPw").trim();
 		if (socialMember == null) { // 일반회원 가입일때만 비밀번호 유효성 검사
-			String memPw = request.getParameter("memPw").trim();
 			if (memPw.length() < 8) {
 				throw new AlertException("비밀번호는 8자리 이상 입력해 주세요.");
 			}
@@ -202,9 +202,11 @@ public class MemberDao {
 		/** 아이디 중복 여부 체크 E */
 		
 		/** 비밀번호 확인시 일치 여부 S */
-		String memPwRe = request.getParameter("memPwRe");
-		if (!memPw.equals(memPwRe)) {
-			throw new AlertException("비밀번호 확인을 다시한번 해 주세요.");
+		if (socialMember == null) {
+			String memPwRe = request.getParameter("memPwRe");
+			if (!memPw.equals(memPwRe)) {
+				throw new AlertException("비밀번호 확인을 다시한번 해 주세요.");
+			}
 		}
 		/** 비밀번호 확인시 일치 여부 E */
 	}
