@@ -212,7 +212,30 @@ public class NaverLogin extends SocialLogin {
 	
 	@Override
 	public Member getSocialUserInfo(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Member member = null;
+		if (session.getAttribute("naverUserInfo") != null) {
+			HashMap<String, String> userInfo = (HashMap<String, String>)session.getAttribute("naverUserInfo");
+			String memId = null;
+			String email = userInfo.get("email");
+			if (email != null) {
+				memId = email.substring(0, email.lastIndexOf("@"));
+			} else {
+				memId = String.valueOf(System.currentTimeMillis());
+			}
+						
+			member = new Member(
+				0,
+				memId,
+				null,
+				userInfo.get("name"),
+				"Naver",
+				userInfo.get("id"),
+				null
+			);
+		}
 		
+		return member;
 	}
 }
 

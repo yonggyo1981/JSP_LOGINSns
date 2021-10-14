@@ -68,7 +68,7 @@ public abstract class SocialLogin {
 	 * @param request
 	 * @return
 	 */
-	public abstract Member getSoicialUserInfo(HttpServletRequest request);
+	public abstract Member getSocialUserInfo(HttpServletRequest request);
 	
 	/**
 	 * Http 소켓을 통해서 응답 데이터 가져오는 메서드
