@@ -35,10 +35,16 @@ public class NaverLoginController extends HttpServlet {
 				 */
 				if (naver.isJoin(userInfo, request)) { // 이미 가입 
 					// 로그인 처리 
-					naver.login(request);
-					// 메인 페이지 이동
+					boolean result = naver.login(request);
+					if (!result) { // 로그인 실패
+						throw new Exception("네이버 로그인 실패!");
+					}
+					
+					// 로그인 성공 - 메인 페이지로 이동 
+					out.print("<script>location.replace('../main');</script>");
 				} else { // 미 가입 
 					// 가입 처리 페이지로 이동
+					out.print("<script>location.replace('../member/join');</script>");
 				}
 			}
 		
