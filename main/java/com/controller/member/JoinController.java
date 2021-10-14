@@ -44,12 +44,19 @@ public class JoinController extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		try {
+			NaverLogin naver = new NaverLogin();
+			Member socialMember = naver.getSocialUserInfo(request);
+			
 			MemberDao dao = new MemberDao();
 			boolean result = dao.join(request);
 			if (!result) { // 회원가입 실패 
 				throw new AlertException("회원가입 실패!");
-			}	
-			out.print("<script>parent.location.href='login';</script>");
+			}
+			if (socialMember == null) { // 일반회원은 로그인 페이지
+				out.print("<script>parent.location.href='login';</script>");
+			} else { // 소셜 회원 가입 완료 후 - 자동 로그인 -> 메인페이지
+				out.print("<script>parent.location.href='../main';</script>");
+			}
 		} catch (AlertException e) {
 			out.print("<script>alert('" + e.getMessage() + "');</script>");
 			return;
