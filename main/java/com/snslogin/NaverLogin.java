@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.io.IOException;
+import java.sql.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.FilterConfig;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.parser.*;
 import org.json.simple.*;
 
+import com.core.DB;
 import com.exception.*;
 
 /**
@@ -137,4 +139,34 @@ public class NaverLogin extends SocialLogin {
 		return userInfo;
 	}
 
+	@Override
+	public boolean isJoin(HashMap<String, String> userInfo, HttpServletRequest request) {
+		String id = userInfo.get("id");
+		String channel = "Naver";
+		
+		String sql = "SELECT COUNT(*) cnt FROM member WHERE socialChannel = ? AND socialId = ?";
+		try (Connection conn = DB.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, channel);
+			pstmt.setString(2, id);
+			
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int cnt = rs.getInt("cnt"); // 1 이상 -> 이미 가입된 회원
+				if (cnt > 0) {
+					return true;
+				}
+			}
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 }
+
+
+
+
+

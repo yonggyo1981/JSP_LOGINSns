@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 
 import com.models.dao.MemberDao;
 import com.exception.*;
+import com.snslogin.*;
 
 /**
  * 로그인  
@@ -22,6 +23,10 @@ public class LoginController extends HttpServlet {
 	@Override 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=utf-8");
+		NaverLogin naver = new NaverLogin();
+		String naverCodeURL = naver.getCodeURL(request);
+		request.setAttribute("naverCodeURL", naverCodeURL);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/member/login.jsp");
 		rd.include(request, response);
 	}
@@ -34,7 +39,7 @@ public class LoginController extends HttpServlet {
 		try { // 로그인 성공 
 			MemberDao dao = new MemberDao();
 			dao.login(request);
-			out.print("<script>parent.location.href='../';</script>");
+			out.print("<script>parent.location.href='../main';</script>");
 		} catch (AlertException e) { // 로그인 실패 
 			out.print("<script>alert('" + e.getMessage() + "');</script>");
 		}

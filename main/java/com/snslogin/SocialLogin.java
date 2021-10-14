@@ -42,6 +42,17 @@ public abstract class SocialLogin {
 	public abstract HashMap<String, String> getUserProfile(String accessToken);
 	
 	/**
+	 * 소셜 로그인 형태로 이미 가입이 되어 있는지 여부 체크 
+	 * 		- socialChannel 과 socialId로 체크
+	 * 		- 이미 가입 되어 있는 경우 -> 바로 로그인 처리
+	 *      - 가입이 안되어 있는 경우 -> 회원 가입 페이지(소셜 로그인 형태)
+	 * @param userInfo
+	 * @param request - userInfo 정보를 쉽게 접근하기 위해서 세션에 담아서 처리 
+	 * @return
+	 */
+	public abstract boolean isJoin(HashMap<String, String> userInfo, HttpServletRequest request);
+	
+	/**
 	 * Http 소켓을 통해서 응답 데이터 가져오는 메서드
 	 * 
 	 * @param apiUrl

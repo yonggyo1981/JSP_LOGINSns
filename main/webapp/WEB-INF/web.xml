@@ -31,7 +31,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Main</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>/main</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>NaverLogin</servlet-name>

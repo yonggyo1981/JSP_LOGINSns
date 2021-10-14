@@ -24,16 +24,26 @@ public class NaverLoginController extends HttpServlet {
 		try {
 			String accessToken = naver.getAccessToken(request);
 			HashMap<String, String> userInfo = naver.getUserProfile(accessToken);
-			Iterator<String> ir = userInfo.keySet().iterator();			
-			while(ir.hasNext()) {
-				String key = ir.next();
-				String value = userInfo.get(key);
-				out.printf("%s = %s<br>", key, value);
+			if (userInfo == null) { 
+				throw new Exception("네이버 로그인 실패!");
+			} else {
+				/** 
+				 * 네이버쪽으로 회원 프로필 정보를 받아오면
+				 * 1. 이미 소셜 로그인 형태로 가입 되어 있는지 여부 체크 
+				 * 2. 가입되어 있으면 -> 바로 로그인 
+				 * 3. 가입되어 있지 않으면 -> 소셜 형태로 회원 가입페이지 이동  
+				 */
+				if (naver.isJoin(userInfo, request)) { // 이미 가입 
+					// 로그인 처리 
+					
+				} else { // 미 가입 
+					// 가입 처리 페이지로 이동
+				}
+				
 			}
 		
-			
 		} catch (Exception e) {
-			out.printf("<script>alert('%s');</script>", e.getMessage());
+			out.printf("<script>alert('%s');location.href='../member/login';</script>", e.getMessage());
 		}
 	}
 }
