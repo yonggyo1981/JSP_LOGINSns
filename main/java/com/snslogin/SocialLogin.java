@@ -16,7 +16,14 @@ import org.json.simple.*;
  *
  */
 public abstract class SocialLogin {
-		
+	
+	/**
+	 * Social 채널별 UserInfo 세션을 비우기
+	 * 
+	 * @param request
+	 */
+	public abstract void clearSession(HttpServletRequest request);
+	
 	/**
 	 * SNS별 인증 code를 발급받는 URL 생성
 	 * 

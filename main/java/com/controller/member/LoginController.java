@@ -24,6 +24,8 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=utf-8");
 		NaverLogin naver = new NaverLogin();
+		naver.clearSession(request);
+		
 		String naverCodeURL = naver.getCodeURL(request);
 		request.setAttribute("naverCodeURL", naverCodeURL);
 		

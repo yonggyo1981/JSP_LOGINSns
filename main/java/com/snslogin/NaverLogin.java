@@ -51,6 +51,12 @@ public class NaverLogin extends SocialLogin {
 	}
 	
 	@Override
+	public void clearSession(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.removeAttribute("naverUserInfo");
+	}
+	
+	@Override
 	public String getCodeURL(HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
@@ -200,6 +206,7 @@ public class NaverLogin extends SocialLogin {
 			if (rs.next()) { // 소셜 회원이 존재 하면 로그인 처리(세션에 memNo 저장)
 				int memNo = rs.getInt("memNo");
 				session.setAttribute("memNo", memNo);
+				clearSession(request);
 				return true; // 로그인 성공
 			}
 			
@@ -207,6 +214,7 @@ public class NaverLogin extends SocialLogin {
 			e.printStackTrace();
 		}
 		
+		clearSession(request);
 		return false;
 	}
 	

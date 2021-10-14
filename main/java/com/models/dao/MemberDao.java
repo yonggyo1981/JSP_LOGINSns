@@ -10,6 +10,7 @@ import com.exception.*;
 import org.mindrot.jbcrypt.*;
 
 import com.models.dto.Member;
+import com.snslogin.*;
 
 /**
  * 회원 Model
@@ -65,7 +66,11 @@ public class MemberDao {
 		// 입력 데이터 검증
 		checkJoinData(request);
 		
-		String sql = "INSERT INTO member (memId, memPw, memNm) VALUES(?,?,?)";
+		/** 소셜 회원 정보 */
+		NaverLogin naver = new NaverLogin();
+		Member member = naver.getSocialUserInfo(request);
+		
+		String sql = "INSERT INTO member (memId, memPw, memNm, socialChannel, socialId) VALUES(?,?,?,?,?)";
 		try (Connection conn = DB.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			String memId = request.getParameter("memId");
