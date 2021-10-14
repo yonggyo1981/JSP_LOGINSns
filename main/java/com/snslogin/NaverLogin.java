@@ -175,6 +175,39 @@ public class NaverLogin extends SocialLogin {
 		
 		return false;
 	}
+	
+	/**
+	 * 네이버 아이디로 사이트 로그인 처리 
+	 * 
+	 * @param request - 세션에 저장된 naverUserInfo를 사용하기 위해서
+	 * @return boolean true - 성공 
+	 */
+	public boolean login(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		HashMap<String, String> userInfo = (HashMap<String, String>)session.getAttribute("naverUserInfo");
+		
+		String id = userInfo.get("id");
+		String channel = "Naver";
+		
+		String sql = "SELECT memNo FROM member WHERE socialChannel = ? AND socialId = ?";
+		try (Connection conn = DB.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, channel);
+			pstmt.setString(2, id);
+			
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) { // 소셜 회원이 존재 하면 로그인 처리(세션에 memNo 저장)
+				int memNo = rs.getInt("memNo");
+				session.setAttribute("memNo", memNo);
+				return true; // 로그인 성공
+			}
+			
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 }
 
 

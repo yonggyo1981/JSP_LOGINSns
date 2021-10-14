@@ -53,6 +53,15 @@ public abstract class SocialLogin {
 	public abstract boolean isJoin(HashMap<String, String> userInfo, HttpServletRequest request);
 	
 	/**
+	 * 이미 가입된 소셜 로그인 회원인 경우 
+	 * 세션에 저장된 userInfo를 통해서 로그인 처리 
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public abstract boolean login(HttpServletRequest request);
+	
+	/**
 	 * Http 소켓을 통해서 응답 데이터 가져오는 메서드
 	 * 
 	 * @param apiUrl
