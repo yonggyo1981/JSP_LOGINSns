@@ -1,5 +1,25 @@
 <%@ page contentType="text/html; charset=utf-8" %>
-<h1>회원가입</h1>
+<%@ page import="com.models.dto.Member" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	boolean isSocialJoin = (Boolean)request.getAttribute("isSocialJoin");
+	Member member = (Member)request.getAttribute("member");
+%>
+<c:set var="member" value="<%=member%>" />
+<c:set var="isSocialJoin" value="<%=isSocialJoin%>" />
+<h1>
+	<c:if test="${isSocialJoin == true}">
+	<c:choose>
+		<c:when test="${member.socialChannel == 'Naver' }">
+		네이버 아이디로 
+		</c:when>
+		<c:when test="${member.socialChannel == 'Kakao'}">
+		카카오 아이디로
+		</c:when>
+	</c:choose>
+	</c:if>
+	회원가입
+</h1>
 <form method="post" action="join" target="ifrmHidden" autocomplete="off">
 	<dl>
 		<dt>아이디</dt>

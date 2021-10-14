@@ -24,6 +24,13 @@ public class JoinController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=utf-8");
 		
+		NaverLogin naver = new NaverLogin();
+		Member member = naver.getSocialUserInfo(request);
+		if (member != null) { // 네이버 로그인으로 회원 가입 유입된 경우 
+			request.setAttribute("isSocialJoin", true);
+			request.setAttribute("member", member);
+		}
+		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/member/form.jsp");
 		rd.include(request, response);
