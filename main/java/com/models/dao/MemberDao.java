@@ -77,7 +77,7 @@ public class MemberDao {
 			String memPw = request.getParameter("memPw");
 			String memNm = request.getParameter("memNm");
 			
-			String hash = null;
+			String hash = "";
 			if (socialMember == null) { // 소셜 회원 가입이 아닌 경우 
 				hash = BCrypt.hashpw(memPw, BCrypt.gensalt(10));
 			}
