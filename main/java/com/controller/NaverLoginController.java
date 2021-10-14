@@ -41,15 +41,15 @@ public class NaverLoginController extends HttpServlet {
 					}
 					
 					// 로그인 성공 - 메인 페이지로 이동 
-					out.print("<script>location.replace('../main');</script>");
+					out.print("<script>location.replace('main');</script>");
 				} else { // 미 가입 
-					// 가입 처리 페이지로 이동
-					out.print("<script>location.replace('../member/join');</script>");
+					// 가입 페이지로 이동
+					out.print("<script>location.replace('member/join');</script>");
 				}
 			}
 		
 		} catch (Exception e) {
-			out.printf("<script>alert('%s');location.href='../member/login';</script>", e.getMessage());
+			out.printf("<script>alert('%s');location.href='member/login';</script>", e.getMessage());
 		}
 	}
 }
