@@ -21,6 +21,8 @@ public class JoinController extends HttpServlet {
 	@Override 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=utf-8");
+		
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/member/form.jsp");
 		rd.include(request, response);
 	}

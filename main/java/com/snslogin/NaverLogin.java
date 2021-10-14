@@ -16,6 +16,7 @@ import org.json.simple.*;
 
 import com.core.DB;
 import com.exception.*;
+import com.models.dto.*;
 
 /**
  * 네이버 아이디로 로그인 
@@ -207,6 +208,11 @@ public class NaverLogin extends SocialLogin {
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public Member getSocialUserInfo(HttpServletRequest request) {
+		
 	}
 }
 

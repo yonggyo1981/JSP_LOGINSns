@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.*;
 
 import com.exception.*;
+import com.models.dto.*;
 
 import org.json.simple.parser.*;
 import org.json.simple.*;
@@ -60,6 +61,14 @@ public abstract class SocialLogin {
 	 * @return
 	 */
 	public abstract boolean login(HttpServletRequest request);
+	
+	/**
+	 * 세션에 저장되어 있는 각 채널별 userInfo 값을 Member 클래스 형태로 반환
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public abstract Member getSoicialUserInfo(HttpServletRequest request);
 	
 	/**
 	 * Http 소켓을 통해서 응답 데이터 가져오는 메서드
