@@ -141,6 +141,17 @@ public class NaverLogin extends SocialLogin {
 
 	@Override
 	public boolean isJoin(HashMap<String, String> userInfo, HttpServletRequest request) {
+		if (userInfo == null)
+			return false;
+		
+		/** 
+		 * userInfo를 회원 가입 페이지등 여러 페이지에 유지하기 위해서 
+		 * 회원 가입시 -> 소셜 로그인인 경우 비밀번호 체크 제외 
+		 * 세션에 담아서 처리 
+		 */
+		HttpSession session = request.getSession();
+		session.setAttribute("naverUserInfo", userInfo);
+		
 		String id = userInfo.get("id");
 		String channel = "Naver";
 		

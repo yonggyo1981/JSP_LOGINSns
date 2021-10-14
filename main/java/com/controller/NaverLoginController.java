@@ -35,7 +35,8 @@ public class NaverLoginController extends HttpServlet {
 				 */
 				if (naver.isJoin(userInfo, request)) { // 이미 가입 
 					// 로그인 처리 
-					
+					//naver.login();
+					// 메인 페이지 이동
 				} else { // 미 가입 
 					// 가입 처리 페이지로 이동
 				}
